@@ -1,7 +1,12 @@
 {
-  "author": "",
-  "name": "bem-project-stub",
-  "version": "2.0.0",
+  "name": "bem-zurb-foundation",
+  "description": "BEM-stack with the most advanced responsive front-end framework in the world.",
+  "version": "1.0.0-beta",
+  "license": "MIT",
+  "author": {
+    "name": "Ilya Rogov",
+    "email": "ilyar.software@gmail.com"
+  },
   "browserslist": [
     "ie >= 10",
     "opera 12.1",
@@ -10,7 +15,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/bem/project-stub.git"
+    "url": "git://github.com/CultOfOpenSource/bem-zurb-foundation.git"
   },
   "engines": {
     "node": ">=4"
@@ -55,6 +60,5 @@
     "test": "enb make && enb make clean && gulp",
     "start": "enb server",
     "build": "enb make"
-  },
-  "private": true
+  }
 }

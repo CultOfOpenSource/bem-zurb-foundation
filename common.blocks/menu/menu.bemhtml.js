@@ -1,0 +1,3 @@
+block('menu')(
+    tag()('ul')
+);

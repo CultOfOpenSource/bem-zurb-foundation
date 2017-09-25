@@ -1,0 +1,3 @@
+block('thumbnail')(
+    tag()('img')
+);

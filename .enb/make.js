@@ -1,3 +1,7 @@
+const naming = {
+    elem: '-',
+    mod: '-'
+};
 const techs = {
         // essential
         fileProvider: require('enb/techs/file-provider'),
@@ -35,10 +39,6 @@ const techs = {
     levels = [
         { path: 'node_modules/bem-core/common.blocks', check: false },
         { path: 'node_modules/bem-core/desktop.blocks', check: false },
-        { path: 'node_modules/bem-components/common.blocks', check: false },
-        { path: 'node_modules/bem-components/desktop.blocks', check: false },
-        { path: 'node_modules/bem-components/design/common.blocks', check: false },
-        { path: 'node_modules/bem-components/design/desktop.blocks', check: false },
         'common.blocks',
         'desktop.blocks'
     ];
@@ -69,7 +69,11 @@ module.exports = function(config) {
             [techs.bemhtml, {
                 sourceSuffixes: ['bemhtml', 'bemhtml.js'],
                 forceBaseTemplates: true,
-                engineOptions : { elemJsInstances : true }
+                engineOptions : {
+                    naming: naming,
+                    escapeContent: false,
+                    elemJsInstances: true
+                }
             }],
 
             // html
@@ -94,11 +98,18 @@ module.exports = function(config) {
                 target: '?.browser.bemhtml.js',
                 filesTarget: '?.bemhtml.files',
                 sourceSuffixes: ['bemhtml', 'bemhtml.js'],
-                engineOptions : { elemJsInstances : true }
+                forceBaseTemplates: true,
+                engineOptions : {
+                    naming: naming,
+                    escapeContent: false,
+                    elemJsInstances: true
+                }
             }],
 
             // js
-            [techs.browserJs, { includeYM: true }],
+            [techs.browserJs, {
+                includeYM: true
+            }],
             [techs.fileMerge, {
                 target: '?.js',
                 sources: ['?.browser.js', '?.browser.bemhtml.js']

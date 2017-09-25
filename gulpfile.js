@@ -34,14 +34,15 @@ const isProd = YENV === 'production';
 
 const pathToYm = require.resolve('ym');
 
+const naming = {
+    elem: '-',
+    mod: '-'
+};
+
 const builder = Builder({
     levels: [
         'node_modules/bem-core/common.blocks',
         'node_modules/bem-core/desktop.blocks',
-        'node_modules/bem-components/common.blocks',
-        'node_modules/bem-components/desktop.blocks',
-        'node_modules/bem-components/design/common.blocks',
-        'node_modules/bem-components/design/desktop.blocks',
         'common.blocks',
         'desktop.blocks'
     ],
@@ -83,14 +84,22 @@ gulp.task('build', () => {
                     gulp.src(pathToYm),
                     bundle.src('js').pipe(filter(f => ~['vanilla.js', 'browser.js', 'js'].indexOf(f.tech))),
                     bundle.src('js').pipe(filter(file => file.tech === 'bemhtml.js'))
-                        .pipe(concat('browser.bemhtml.js')).pipe(bemhtml({ elemJsInstances: true }))
+                        .pipe(concat('browser.bemhtml.js')).pipe(bemhtml({
+                        naming: naming,
+                        escapeContent: false,
+                        elemJsInstances: true
+                    }))
                 )
                     .pipe(concat(bundle.name + '.min.js'))
                     .pipe(gulpif(isProd, uglify())),
             tmpls: bundle =>
                 bundle.src('bemhtml')
                     .pipe(concat('any.bemhtml.js'))
-                    .pipe(bemhtml({ elemJsInstances: true }))
+                    .pipe(bemhtml({
+                        naming: naming,
+                        escapeContent: false,
+                        elemJsInstances: false
+                    }))
                     .pipe(concat(bundle.name + '.bemhtml.js')),
             html: bundle => {
                 const bemhtmlApply = () => toHtml(bundle.target('tmpls'));
